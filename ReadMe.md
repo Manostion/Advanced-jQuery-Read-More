@@ -64,7 +64,7 @@ http://whitworth.de/ReadMore/ReadMe.html
 
 ## Miscellaneous
 
-If you're interested in my other plugins, like the scroll progress tracker used in this ReadMe, feel free to download them from GitHub or JSClasses.org:
+If you're interested in my other plugins, like the scroll progress tracker used in the ReadMe.html, feel free to download them from GitHub or JSClasses.org:
 
 https://github.com/Manostion
 http://www.jsclasses.org/browse/author/20883.html
