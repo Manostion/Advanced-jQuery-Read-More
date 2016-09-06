@@ -20,7 +20,7 @@ $.fn.readMore = function(options) {
         linkCloseCaption: 'read less',              // defines the caption of the read less toggle
         linkHint: 'Click to see full article',      // sets the title (i.e. the mouseover hint) of the read more toggle
         animationSpeed: 800,                        // sets the duration of the open/close animation in milliseconds; set to 0 to toggle w/o animation
-        previewTextOnly: true,                      // if set to false everything (including images etc.) within the height of showLines lines will be visible
+        previewTextOnly: true                       // if set to false everything (including images etc.) within the height of showLines lines will be visible
     }, options);
     // <-- Default options
     
@@ -35,7 +35,10 @@ $.fn.readMore = function(options) {
             $(this).addClass('jrm-' + sectionId);
             
             // get line-height --> //
-            lineHeight = $(this).children(':first-child').css('line-height');
+//            lineHeight = $(this).children(':first-child').css('line-height');
+            $(this).children(':first-child').append('<div id="Temp">&nbsp;</div>');
+            lineHeight = $('#Temp').height();
+            $('#Temp').remove;
             // <-- get line-height //
             
             // transfer first child's margin-top to the container to keep elements within --> //
