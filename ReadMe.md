@@ -62,6 +62,15 @@ http://whitworth.de/ReadMore/ReadMe.html
 
 ---
 
+## Update history
+
+**Version 1.0.1**
+### Fixes:
+
+- Changed the calculation of line-height to make it work in all browsers
+
+---
+
 ## Miscellaneous
 
 If you're interested in my other plugins, like the scroll progress tracker used in the ReadMe.html, feel free to download them from GitHub or JSClasses.org:

@@ -1,51 +1,330 @@
-<h1 id="advanced-jquery-read-more-v1-0-1">Advanced jQuery Read More v1.0.1</h1>
-<p>Dynamic Read More plugin for jQuery</p>
-<p>(c) 2016 David Whitworth (david@whitworth.de)</p>
-<p>Released under the GNU General Public License (GPL)</p>
-<hr>
-<h2 id="description">Description</h2>
-<p>A small but versatile jQuery plugin that allows you to truncate specific sections of your content and then creates a link to toggle the full content.</p>
-<hr>
-<h2 id="setup">Setup</h2>
-<ol>
-<li>Copy the files from the css and js directories to your corresponding asset directories.</li>
-<li>Include the advanced-read-more.css or advanced-read-more.min.css in the <code>&lt;head&gt;</code></li>
-</ol>
-<pre><code class="lang-html">&lt;link href=&quot;css/advanced-read-more.min.css&quot; rel=&quot;stylesheet&quot; /&gt;
-</code></pre>
-<ol>
-<li>Include jQuery (if you haven&#39;t already) followed by advanced-read-more.js or advanced-read-more.min.js in the <code>&lt;head&gt;</code></li>
-</ol>
-<pre><code class="lang-html">&lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;js/advanced-read-more.min.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<ol>
-<li>Initialize the plugin below the included scripts, like so:</li>
-</ol>
-<pre><code class="lang-javascript">&lt;script type=&#39;text/javascript&#39;&gt;
-    $(&#39;body&#39;).readMore();
-&lt;/script&gt;
-</code></pre>
-<p>Or with custom options...</p>
-<pre><code class="lang-javascript">&lt;script type=&#39;text/javascript&#39;&gt;
-    $(&#39;body&#39;).readMore({
-        showLines: 5,
-        linkCaption: &#39;expand...&#39;,
-        linkCloseCaption: &#39;reduce...&#39;,
-        linkHint: &#39;Click for more information&#39;
-    });
-&lt;/script&gt;
-</code></pre>
-<hr>
-<h2 id="live-demo">Live-Demo</h2>
-<p>You can find a more detailed introduction including demos for the script here:</p>
-<p><a href="http://whitworth.de/ReadMore/ReadMe.html">http://whitworth.de/ReadMore/ReadMe.html</a></p>
-<hr>
-<h2 id="miscellaneous">Miscellaneous</h2>
-<p>If you&#39;re interested in my other plugins, like the scroll progress tracker used in the ReadMe.html, feel free to download them from GitHub or JSClasses.org:</p>
-<p><a href="https://github.com/Manostion">https://github.com/Manostion</a>
-<a href="http://www.jsclasses.org/browse/author/20883.html">http://www.jsclasses.org/browse/author/20883.html</a></p>
-<hr>
-<h2 id="questions-feedback">Questions &amp; Feedback</h2>
-<p>If you have any questions, notice any bugs, have issues getting the plugin to work, have an idea for a cool feature to be added, or would like to leave any other kind of feedback, feel free to contact me under David@Whitworth.de</p>
-<p>Also, please, feel free to send me links to websites where you used this! =)</p>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ReadMe | AjRM v1.0.1</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style>
+            /*
+            //-------------------------------------------------------------------------------------
+            // jQuery Read More ReadMe Stylesheet
+            //-------------------------------------------------------------------------------------
+            // Created          2016-08-29
+            // Changed          2016-08-29
+            // Authors          David Whitworth | David@Whitworth.de
+            //-------------------------------------------------------------------------------------
+            // 2016-08-29       Created
+            //-------------------------------------------------------------------------------------
+            // Copyright (c) 2016
+            //-------------------------------------------------------------------------------------
+            */
+            body {
+                margin: 0;
+                padding: 24px 16px;
+                color: #000000;
+                background-color: #ffffff;
+            }
+            h1 {
+              font-size: 38px;
+            }
+            h3 {
+              font-size: 24px;
+            }
+            hr {
+              margin-top: 24px;
+              border: 2px solid rgba(0, 0, 0, 0.1);
+            }
+            img {
+              max-width: calc(100% - 44px);
+            }
+            .jrm-centerAll {
+              margin: 0 auto;
+              max-width: 900px;
+            }
+            .jrm-options hr {
+              margin-top: 0px;
+              border-top: 1px solid rgba(0, 0, 0, 0.07);
+              border-bottom: none;
+            }
+            .larger {
+              font-size: 1.5em;
+            }
+            .smaller {
+              font-size: 0.8em;
+            }
+            .pullUp {
+              margin-top: -20px;
+            }
+            .hot {
+              margin-left: 20px;
+              font-family: Hack, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+              font-weight: bold;
+              color: #e70000;
+            }
+            .sourcecode,
+            .htmlTag,
+            .htmlAttr,
+            .htmlVal,
+            .htmlComment,
+            .javascript,
+            .jsVal,
+            .jsComment,
+            .jsQuote,
+            .jsConst {
+              font-family: Hack, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+              font-size: 13px;
+            }
+            .sourcecode,
+            .historyVersion {
+              border: 1px solid rgba(0, 0, 0, 0.15);
+              padding: 8px 16px;
+              text-overflow: ellipsis;
+              background-color: rgba(0, 0, 0, 0.05);
+              overflow: hidden;
+            }
+            .sourcecode .htmlTag,
+            .historyVersion .htmlTag {
+              color: #0000ff;
+            }
+            .sourcecode .htmlAttr,
+            .historyVersion .htmlAttr,
+            .sourcecode .jsVal,
+            .historyVersion .jsVal {
+              color: #ff0000;
+            }
+            .sourcecode .htmlVal,
+            .historyVersion .htmlVal {
+              color: #8000ff;
+            }
+            .sourcecode .htmlComment,
+            .historyVersion .htmlComment,
+            .sourcecode .jsComment,
+            .historyVersion .jsComment {
+              color: #008000;
+            }
+            .sourcecode .javascript,
+            .historyVersion .javascript {
+              margin: 0 -16px;
+              padding: 0 16px;
+              background-color: rgba(106, 136, 169, 0.2);
+            }
+            .sourcecode .jsQuote,
+            .historyVersion .jsQuote {
+              color: #808080;
+            }
+            .sourcecode .jsConst,
+            .historyVersion .jsConst {
+              color: #000080;
+              text-shadow: 1px 0 0 #000080;
+              font-style: italic;
+            }
+            .historyVersion {
+              margin-bottom: 16px;
+            }
+            .historyVersion:last-of-type {
+              margin: 0;
+            }
+        </style>
+        <link href="css/advanced-read-more.min.css" rel="stylesheet" />
+        <link href="http://whitworth.de/ProgressTracker/css/advanced-progress-tracker.min.css" rel="stylesheet" />
+        <link href="http://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css" rel="stylesheet" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/advanced-read-more.min.js"></script>
+        <script src="http://whitworth.de/ProgressTracker/js/advanced-progress-tracker.min.js"></script>
+        <script>
+            $('body').readMore({
+                showLines: 5,
+                linkCaption: 'expand...',
+                linkCloseCaption: 'reduce...',
+                linkHint: 'Click for more information'
+            });
+            $('body').progressTracker({
+                horStops: false,
+                horTitles: true,
+                horMobileOnly: true,
+                verTracker: true,
+                verPosition: 'right',
+                trackAllHeadlines: true,
+                addFinalStop: true,
+                finalStopTitle: 'Questions & Feedback',
+                scrollSpeed: 1200
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="MainContent" class="jrm-centerAll">
+            <div id="TrackScrollProgress">
+                <div class="spt-trackThis">
+                    <h1 data-name="Introduction">Advanced jQuery Read More</h3>
+                    <p class="smaller pullUp bold">Ver. 1.0.1</p>
+                    <p>A small but versatile jQuery plugin that allows you to truncate specific sections of your content and then creates a link to toggle the full content.</p>
+                    <p>(c) 2016 David Whitworth (<a href="mailto:david@whitworth.de">david@whitworth.de</a>)</p>
+                    <p>Released under the <a href="http://www.opensource.org/licenses/gpl-license.html" target="_blank">GNU General Public License (GPL)</a></p>
+                </div>
+                <hr />
+                <div class="jrm-options spt-trackThis">
+                    <h3>Options</h3>
+<!-- New! in current version -->
+<!--
+                    <p><b>NewOption</b> - <i>default: <b>true</b></i><span class="hot">New!</span><br />
+                    Lorem Ipsum dolor sit amet. There are two options:</p>
+                    <ul>
+                        <li>
+                            <i><b>'optionOne'</b></i>
+                        </li>
+                        <li>
+                            <i><b>'optionTwo'</b></i>
+                        </li>
+                    </ul>
+                    <p class="smaller">Room for additional notes.</p>
+                    <hr />
+<!-- Horizontal tracker -->
+                    <p><b>showLines</b> - <i>default: <b>8</b></i><br />
+                    Sets the number of text lines to display before the text gets truncated and the "read more" link shows up. Text that has less lines than defined with this setting will not have the "read more" link.</p>
+                    <p class="smaller"><br />In other words, if the default settings are used, any text longer than 8 lines will be cut off after the eigth line.</span>
+                    <br /><b>Note: </b>In order for this setting to take full effect, the section should not start with a headline, since the line-height used for the calculation is taken from the container's first child element. This will be optimized in a later version.</p>
+                    <hr />
+                    <p><b>showParagraph</b> - <i>default: <b>false</b></i><br />
+                    If set to true, the first paragraph (&lt;p&gt;) of each tracked section will be visible in the preview instead of a number of lines.</p>
+                    <p class="smaller"><br />This option overwrites <b>showLines</b> and the data-lines attribute.</p>
+                    <hr />
+                    <p><b>linkCaption</b> - <i>default: <b>'read more'</b></i><br />
+                    Changing this option allows you to change the text of the toggle-link.</p>
+                    <hr />
+                    <p><b>linkCloseCaption</b> - <i>default: <b>'read less'</b></i><br />
+                    Changing this option allows you to change the text of the toggle-link while the full content is visible.</p>
+                    <hr />
+                    <p><b>linkHint</b> - <i>default: <b>'Click to see full article'</b></i><br />
+                    This option sets the title-attribute (i.e. the mouseover hint) of the "read more" link.</p>
+                    <hr />
+                    <p><b>animationSpeed</b> - <i>default: <b>800</b></i><br />
+                    This option controls the duration in milliseconds of the animation when a "Read More" text is toggled. The higher this value, the slower the animation.
+                    <br />Set this to 0 to toggle without an animation.</p>
+                    <hr />
+                    <p><b>previewTextOnly</b> - <i>default: <b>true</b></i><br />
+                    Usually, whenever a section gets truncated, only text lines will be visible within the previewed block. By setting this option to false all elements including images tables etc. will be previewed but may get cut off.</p>
+                </div>
+                <hr />
+                <div class="spt-trackThis">
+                    <h3>Setup</h3>
+                    <p>1. Include the advanced-read-more.min.css in the head:</p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;link</span>
+                        <span class="htmlAttr">href</span>=<span class="htmlVal">"css/advanced-read-more.min.css"</span>
+                        <span class="htmlAttr">rel</span>=<span class="htmlVal">"stylesheet"</span>
+                        <span class="htmlTag"> /&gt;</span>
+                    </div>
+                    <p>2. Include jQuery followed by advanced-read-more.min.js in the head:</p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;script</span>
+                        <span class="htmlAttr">src</span>=<span class="htmlVal">"http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"</span><span class="htmlTag">&gt;&lt;/script&gt;</span><br />
+                        <span class="htmlTag">&lt;script</span>
+                        <span class="htmlAttr">src</span>=<span class="htmlVal">"js/advanced-read-more.min.js"</span><span class="htmlTag">&gt;&lt;/script&gt;</span>
+                    </div>
+                    <p>3. Initialize the plugin below the included scripts:</p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;script&gt;</span>
+                        <div class="javascript">
+                            &nbsp;&nbsp;&nbsp;&nbsp;$(<span class="jsQuote">'body'</span>).readMore();
+                        </div>
+                        <span class="htmlTag">&lt;/script&gt;</span>
+                    </div>
+                    <p>Or with custom options <i>(the options below are used in this ReadMe's Demo)</i>:</p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;script&gt;</span>
+                        <div class="javascript">
+                            &nbsp;&nbsp;&nbsp;&nbsp;$(<span class="jsQuote">'body'</span>).readMore({<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;showLines: <span class="jsVal">5</span>,<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linkCaption: <span class="jsQuote">'expand...'</span>,<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linkCloseCaption: <span class="jsQuote">'reduce...'</span>,<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linkHint: <span class="jsQuote">'Click for more information'</span><br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;});
+                        </div>
+                        <span class="htmlTag">&lt;/script&gt;</span>
+                    </div>
+                    <p>In order for the plugin to effect any sections, you need to add the class "jrm-truncate" to them:</p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span>
+                    </div>
+                    <p>If you want to define a number of preview lines to any section that differs from the one you set in the options, you can use the <i>data-lines</i> attribute. This will overwrite the value of the <b>showLines</b> option:
+                    <span class="smaller"><br />See Demo 2.</span></p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-lines</span>=<span class="htmlVal">"10"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span>
+                    </div>
+                    <p>If you want a certain section's preview to contain it's whole first paragraph (&lt;p&gt;) no matter how many lines it has, you can set the <i>data-lines</i> attribute to "-1". This will ignore the <b>showLines</b> option for that section:</p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-lines</span>=<span class="htmlVal">"-1"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span>
+                    </div>
+                    <p>If you want a specific section's toggle link to have a different caption, you can use the <i>data-link-caption</i> and <i>data-link-closecaption</i> attributes. This will overwrite the value of the <b>linkCaption</b> and <b>linkCloseCaption</b> options:
+                    <span class="smaller"><br />See Demo 2.</span></p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-link-caption</span>=<span class="htmlVal">"continue..."</span>
+                        <span class="htmlAttr">data-link-closecaption</span>=<span class="htmlVal">"done"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span>
+                    </div>
+                </div>
+                <hr />
+<!-- Demos -->
+                <div class="jrm-options spt-trackThis">
+                    <h3>Demo 1</h3>
+                    <div class="jrm-truncate">
+                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                        <img src="http://placehold.it/350x150" alt="Sample Image" />
+                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    </div>
+                    <hr />
+                </div>
+                <div class="spt-trackThis">
+                    <h3 data-name="Demo 2">Demo 2 <span class="smaller"><span class="smaller">(using different data-attributes)</span></span></h3>
+                    <div class="jrm-truncate" data-lines="10" data-link-caption="continue..." data-link-closecaption="done">
+                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                        <img src="http://placehold.it/350x150" alt="Sample Image" />
+                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    </div>
+                </div>
+                <hr />
+<!-- Update History -->
+                <div class="spt-trackThis">
+                    <h3>Update history</h3>
+                    <div class="historyVersion">
+                        <span class="bold">Version 1.0.1</span><br />
+                        <p class="bold larger">Fixes:</p>
+                        <p>
+                            <span class="underline">Changed the way the <span class="less">line-height</span> is calculated because it wasn't working in most browsers.</span>
+                            <br /><span class="smaller">
+                                Most browsers didn't return a value for the <span class="less">line-height</span> but 'NaN' if no <span class="less">line-height</span> was specified (i.e. automatic values). Becuase of this, the whole script didn't work in Chrome, Edge, Opera and possibly others.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+<!-- Miscellaneous -->
+                <div class="spt-trackThis">
+                    <h3>Miscellaneous</h3>
+                    <p>If you're interested in my other plugins, like the scroll progress tracker used in this ReadMe, feel free to download them from <a href="https://github.com/Manostion" title="Manostion on GitHub" target="_blank">GitHub</a> or <a href="http://www.jsclasses.org/browse/author/20883.html" title="David Whitworth on JSClasses.org" target="_blank">JSClasses.org</a>.</p>
+                </div>
+                <hr />
+<!-- Questions & Feedback -->
+                <div>
+                    <h3>Questions &amp; Feedback</h3>
+                    <p>If you have any questions, notice any bugs, have issues getting the plugin to work, have an idea for a cool feature to be added, or would like to leave any other kind of feedback, feel free to contact me under <a href="mailto:David@Whitworth.de">David@Whitworth.de</a></p>
+                    <p>Also, please, feel free to send me links to websites where you used this! <span class="larger">☺</span></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
