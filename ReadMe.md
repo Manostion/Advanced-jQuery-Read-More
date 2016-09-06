@@ -1,4 +1,4 @@
-Advanced jQuery Read More v1.0
+Advanced jQuery Read More v1.0.1
 ==============================================
 
 Dynamic Read More plugin for jQuery
