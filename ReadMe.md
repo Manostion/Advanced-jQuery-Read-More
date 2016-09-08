@@ -1,4 +1,4 @@
-Advanced jQuery Read More v1.0.1
+Advanced jQuery Read More v1.1
 ==============================================
 
 Dynamic Read More plugin for jQuery
@@ -63,6 +63,16 @@ http://whitworth.de/ReadMore/ReadMe.html
 ---
 
 ## Update history
+
+**Version 1.1**
+### Fixes:
+
+- Removed a misplaced placeholder item
+
+### New Features:
+
+- Added option *linking*.
+- Added several *data-*attributes.
 
 **Version 1.0.1**
 ### Fixes:
