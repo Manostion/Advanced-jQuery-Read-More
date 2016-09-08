@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>ReadMe | AjRM v1.0.1</title>
+        <title>ReadMe | AjRM v1.1</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <style>
@@ -10,10 +10,11 @@
             // jQuery Read More ReadMe Stylesheet
             //-------------------------------------------------------------------------------------
             // Created          2016-08-29
-            // Changed          2016-08-29
+            // Changed          2016-09-08
             // Authors          David Whitworth | David@Whitworth.de
             //-------------------------------------------------------------------------------------
             // 2016-08-29       Created
+            // 2016-09-08 DW    removed the sourcecode styling from this readme
             //-------------------------------------------------------------------------------------
             // Copyright (c) 2016
             //-------------------------------------------------------------------------------------
@@ -61,63 +62,6 @@
               font-weight: bold;
               color: #e70000;
             }
-            .sourcecode,
-            .htmlTag,
-            .htmlAttr,
-            .htmlVal,
-            .htmlComment,
-            .javascript,
-            .jsVal,
-            .jsComment,
-            .jsQuote,
-            .jsConst {
-              font-family: Hack, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-              font-size: 13px;
-            }
-            .sourcecode,
-            .historyVersion {
-              border: 1px solid rgba(0, 0, 0, 0.15);
-              padding: 8px 16px;
-              text-overflow: ellipsis;
-              background-color: rgba(0, 0, 0, 0.05);
-              overflow: hidden;
-            }
-            .sourcecode .htmlTag,
-            .historyVersion .htmlTag {
-              color: #0000ff;
-            }
-            .sourcecode .htmlAttr,
-            .historyVersion .htmlAttr,
-            .sourcecode .jsVal,
-            .historyVersion .jsVal {
-              color: #ff0000;
-            }
-            .sourcecode .htmlVal,
-            .historyVersion .htmlVal {
-              color: #8000ff;
-            }
-            .sourcecode .htmlComment,
-            .historyVersion .htmlComment,
-            .sourcecode .jsComment,
-            .historyVersion .jsComment {
-              color: #008000;
-            }
-            .sourcecode .javascript,
-            .historyVersion .javascript {
-              margin: 0 -16px;
-              padding: 0 16px;
-              background-color: rgba(106, 136, 169, 0.2);
-            }
-            .sourcecode .jsQuote,
-            .historyVersion .jsQuote {
-              color: #808080;
-            }
-            .sourcecode .jsConst,
-            .historyVersion .jsConst {
-              color: #000080;
-              text-shadow: 1px 0 0 #000080;
-              font-style: italic;
-            }
             .historyVersion {
               margin-bottom: 16px;
             }
@@ -126,8 +70,8 @@
             }
         </style>
         <link href="css/advanced-read-more.min.css" rel="stylesheet" />
+        <link href="http://whitworth.de/sourcecode-css/css/sc-style.min.css" rel="stylesheet" />
         <link href="http://whitworth.de/ProgressTracker/css/advanced-progress-tracker.min.css" rel="stylesheet" />
-        <link href="http://cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css" rel="stylesheet" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/advanced-read-more.min.js"></script>
         <script src="http://whitworth.de/ProgressTracker/js/advanced-progress-tracker.min.js"></script>
@@ -157,7 +101,7 @@
             <div id="TrackScrollProgress">
                 <div class="spt-trackThis">
                     <h1 data-name="Introduction">Advanced jQuery Read More</h3>
-                    <p class="smaller pullUp bold">Ver. 1.0.1</p>
+                    <p class="smaller pullUp bold">Ver. 1.1</p>
                     <p>A small but versatile jQuery plugin that allows you to truncate specific sections of your content and then creates a link to toggle the full content.</p>
                     <p>(c) 2016 David Whitworth (<a href="mailto:david@whitworth.de">david@whitworth.de</a>)</p>
                     <p>Released under the <a href="http://www.opensource.org/licenses/gpl-license.html" target="_blank">GNU General Public License (GPL)</a></p>
@@ -171,15 +115,29 @@
                     Lorem Ipsum dolor sit amet. There are two options:</p>
                     <ul>
                         <li>
-                            <i><b>'optionOne'</b></i>
+                            <i><b>'optionOne'</b></i> - Explanation.
                         </li>
                         <li>
-                            <i><b>'optionTwo'</b></i>
+                            <i><b>'optionTwo'</b></i> - Explanation.
                         </li>
                     </ul>
                     <p class="smaller">Room for additional notes.</p>
                     <hr />
 <!-- Horizontal tracker -->
+                    <p><b>linking</b> - <i>default: <b>true</b></i><span class="hot">New!</span><br />
+                    Defines whether and when a "read more" link should be created. There are three options:</p>
+                    <ul>
+                        <li>
+                            <i><b>true</b></i> - The content will be truncated and a "read more / "read less" link will be appended.
+                        </li>
+                        <li>
+                            <i><b>false</b></i> - The content will be truncated only without a means to toggle the full content.
+                        </li>
+                        <li>
+                            <i><b>'open only'</b></i> - The content will be truncated and a "read more" link will be appended to toggle the full content. Once expanded, the content cannot be truncated again.
+                        </li>
+                    </ul>
+                    <hr />
                     <p><b>showLines</b> - <i>default: <b>8</b></i><br />
                     Sets the number of text lines to display before the text gets truncated and the "read more" link shows up. Text that has less lines than defined with this setting will not have the "read more" link.</p>
                     <p class="smaller"><br />In other words, if the default settings are used, any text longer than 8 lines will be cut off after the eigth line.</span>
@@ -267,6 +225,25 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
                         <span class="htmlTag">&lt;/div&gt;</span>
                     </div>
+                    <p>If you want a specific section to have no toggle link, have a toggle link or only have a toggle link until it's clicked, you can use the <i>data-linking</i> attribute. The possibilities match the <b>linking</b> option:
+                    <span class="smaller"><br />See Demo 2 for data-linking="open only".</span></p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-linking</span>=<span class="htmlVal">"true"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span><br />
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-linking</span>=<span class="htmlVal">"false"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span><br />
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-linking</span>=<span class="htmlVal">"open only"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span>
+                    </div>
                     <p>If you want a specific section's toggle link to have a different caption, you can use the <i>data-link-caption</i> and <i>data-link-closecaption</i> attributes. This will overwrite the value of the <b>linkCaption</b> and <b>linkCloseCaption</b> options:
                     <span class="smaller"><br />See Demo 2.</span></p>
                     <div class="sourcecode">
@@ -274,6 +251,15 @@
                         <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
                         <span class="htmlAttr">data-link-caption</span>=<span class="htmlVal">"continue..."</span>
                         <span class="htmlAttr">data-link-closecaption</span>=<span class="htmlVal">"done"</span><span class="htmlTag">&gt;</span><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
+                        <span class="htmlTag">&lt;/div&gt;</span>
+                    </div>
+                    <p>You can also set the duration of the animation individually for each section by using the <i>data-duration</i> attribute:
+                    <span class="smaller"><br />See Demo 2.</span></p>
+                    <div class="sourcecode">
+                        <span class="htmlTag">&lt;div</span>
+                        <span class="htmlAttr">class</span>=<span class="htmlVal">"jrm-truncate"</span>
+                        <span class="htmlAttr">data-duration</span>=<span class="htmlVal">"0"</span><span class="htmlTag">&gt;</span><br />
                         &nbsp;&nbsp;&nbsp;&nbsp;<span class="htmlComment">&lt;!-- insert content here --&gt;</span><br />
                         <span class="htmlTag">&lt;/div&gt;</span>
                     </div>
@@ -291,7 +277,7 @@
                 </div>
                 <div class="spt-trackThis">
                     <h3 data-name="Demo 2">Demo 2 <span class="smaller"><span class="smaller">(using different data-attributes)</span></span></h3>
-                    <div class="jrm-truncate" data-lines="10" data-link-caption="continue..." data-link-closecaption="done">
+                    <div class="jrm-truncate" data-lines="10" data-linking="open only" data-link-caption="continue..." data-link-closecaption="done" data-duration="0">
                         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
                         <img src="http://placehold.it/350x150" alt="Sample Image" />
                         <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
@@ -301,6 +287,31 @@
 <!-- Update History -->
                 <div class="spt-trackThis">
                     <h3>Update history</h3>
+                    <div class="historyVersion">
+                        <span class="bold">Version 1.1</span><br />
+                        <p class="bold larger">Fixes:</p>
+                        <p>
+                            <span class="underline">Removed a misplaced placeholder item.</span>
+                            <br /><span class="smaller">
+                                In order for the line-height to be calculated correctly in all browsers (AjRM v1.0.1), a placeholder element was created within each section but wasn't correctly removed afterwards, resulting in a superfluous empty line of text.
+                            </span>
+                        </p>
+                        <hr />
+                        <p class="bold larger">New Features:</p>
+                        <p>
+                            <span class="underline">Added option <b>linking</b>.</span>
+                            <br /><span class="smaller">
+                                It is now possible to control whether the "read more" and/or "read less" links should be created.
+                            </span>
+                        </p>
+                        <hr />
+                        <p>
+                            <span class="underline">Added several <b>data-</b>attributes.</span>
+                            <br /><span class="smaller">
+                                The options <b>linking</b> and <b>animationSpeed</b> can now individually be overwritten by adding the <b>data-linking</b> and <b>data-duration</b> attributes to the sections.
+                            </span>
+                        </p>
+                    </div>
                     <div class="historyVersion">
                         <span class="bold">Version 1.0.1</span><br />
                         <p class="bold larger">Fixes:</p>
